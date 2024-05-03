@@ -51,7 +51,6 @@ return(
   <br /> <br />
    <input type="checkbox"
   //  value={ option1}
-  checked={accept}
    onChange={(e)=>setAccept(e.target.checked)} 
  />  Accept
  <br /> <br />
