@@ -54,7 +54,7 @@ return(
    onChange={(e)=>setAccept(e.target.checked)} 
  />  Accept
  <br /> <br />
-  <input type="submit" value="submit" />
+  <input type="submit"  onChange={(e)}value="submit" />
   </form>
 </div>
 )}
