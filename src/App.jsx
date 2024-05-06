@@ -1,48 +1,104 @@
-import { useState } from "react"
+import { useState } from "react";
 
+const App = () => {
+    const [users, setusers] = useState([]);
 
-const App=()=>{
-  const [username, setUsername] = useState(""); 
-  const [gender, setGender] = useState("");
-  const [city, setCity] = useState("");
-  const [description,setText]=useState("");
-  const [checkedBox,setCheckBox]=useState("");
-  const[accept, setAccept] = useState("");
+    const [username, setUsername] = useState("");
+    const [gender, setGender] = useState("male");
+    const [city, setCity] = useState("mumbai");
+    const [desc, setDesc] = useState("");
+    const [accept, setAccept] = useState(false);
+    const SubmitHandler = (e) => {
+        e.preventDefault();
 
+        const newuser = { username, gender, city, desc };
 
-  const SubmiteHandler=(e)=>{e.preventDefult();
-    console.log(username)
-    console.log(gender)
-    console.log(city)
-    console.log(description)
-    console.log(checkedBox)
-    }
+        const copyuser = [...users];
+        copyuser.push(newuser);
+        setusers(copyuser);
 
-return(
-<div>
-  <h1>TWO WAY BINDINNG</h1>
-  <form onSubmit={SubmiteHandler} >
-   <input type="text"onChange={(e)=>{setUsername(e.target.value)}}
-    value={username} placeholder="username" id="username" />
-     <br /> <br />
-       <input type="radio"onChange={(e)=>setGender(e.target.value)}checked={gender=="male"?true:false } 
-       name="gender"value="male"/>male
-       <input type="radio"onChange={(e)=>setGender(e.target.value)}checked={gender=="female"?true:false } 
-       name="gender"value="female" />female
-  <br /> <br />
-     <select defaultValue={city}onChange={(e)=>setCity(e.target.value)}>
-     <option value="delhi">delhi</option>
-    <option value="kolkata">kolkata</option>
-    <option value="mumbai">mumbai</option>
-    <option value="pune">pune</option>
-    </select>
-   <br /> <br />
-     <textarea placeholder="Enter text here" onChange={(e)=>setText(e.target.value)} value={description} ></textarea>
-   <br /> <br />
-     <input type="checkbox" onChange={(e)=>{setCheckBox(e.target.checked)}} value={checkedBox} checked={checkedBox?true:false}  />Select All
-   <br /> <br />
-    <input type="submit" value="submit" />
-  </form>
-</div>
-)}
-export default App
+        // setusers([...users, newuser])
+
+        setUsername("");
+        setCity("mumbai");
+        setGender("male");
+        setDesc("");
+        setAccept(false);
+    };
+
+    let listrender =
+        users.length > 0 ? (
+            users.map((user, index) => {
+                return (
+                    <div key={index}>
+                        <h1>{user.username}</h1>
+                        {user.city}
+                    </div>
+                );
+            })
+        ) : (
+            <h1>no data present</h1>
+        );
+
+    return (
+        <div>
+            <h1>Two Way Binding</h1>
+            <form onSubmit={SubmitHandler}>
+                <input
+                    onChange={(e) => setUsername(e.target.value)}
+                    value={username}
+                    type="text"
+                    placeholder="username"
+                />
+                <br /> <br />
+                <input
+                    onChange={(e) => setGender(e.target.value)}
+                    value="male"
+                    checked={gender === "male" ? true : false}
+                    type="radio"
+                    name="gender"
+                />
+                Male
+                <input
+                    onChange={(e) => setGender(e.target.value)}
+                    value="female"
+                    checked={gender === "female" ? true : false}
+                    type="radio"
+                    name="gender"
+                />
+                Female
+                <br /> <br />
+                <select
+                    defaultValue={city}
+                    onChange={(e) => setCity(e.target.value)}
+                >
+                    <option value="delhi">Delhi</option>
+                    <option value="pune">Pune</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="kolkata">Kolkata</option>
+                </select>
+                <br /> <br />
+                <textarea
+                    onChange={(e) => setDesc(e.target.value)}
+                    value={desc}
+                    placeholder="enter text here"
+                ></textarea>
+                <br /> <br />
+                <input
+                    // value="Option 1"
+                    checked={accept ? true : false}
+                    onChange={(e) => setAccept(e.target.checked)}
+                    type="checkbox"
+                />
+                Accept
+                <br />
+                <br />
+                <button>Submit</button>
+            </form>
+            <hr />
+            {listrender}
+        </div>
+    );
+};
+
+export default App;
