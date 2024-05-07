@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import css from "./App.module.css";
 const App = () => {
     const [users, setusers] = useState([]);
 
@@ -21,6 +21,7 @@ const App = () => {
         setDesc("");
         setAccept(false);
     };
+    // const x={fontSize:"70px",color:"tomato"}
      let listrender =users.length > 0 ?(users.map((user, index) => {
                 return (
                     <div key={index}>
@@ -31,12 +32,13 @@ const App = () => {
                     </div>
                 );})) : 
              (
-            <h1>no data present</h1>
+            <h1 className="">no data present</h1>
             );
 
+    // const y={ width:"600px",backgroundColor:"salmon"}
     return (
         <div>
-            <h1>Two Way Binding</h1>
+            <h1 className={css.heading}>Two Way Binding</h1>
             <form onSubmit={SubmitHandler}>
                <input onChange={(e) =>setUsername(e.target.value)}value={username}
                     type="text"
